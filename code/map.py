@@ -143,6 +143,7 @@ class Map:
             object = self.findObject(x, y)
             if object.action(self.game.player, self):
                 self.deleteStructure(object)
+                self.displayWindow()
 
     def addTree(self):
         tree = Tree()
@@ -235,8 +236,6 @@ class Map:
 
         index = self.occupiedAreas.index(object)
         self.occupiedAreas.pop(index)
-
-        print(self.occupiedList)
 
         for i in range(x1, x2):
             for j in range(y1, y2):

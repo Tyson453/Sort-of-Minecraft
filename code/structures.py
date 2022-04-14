@@ -29,16 +29,16 @@ class Tree:
             print('What would you like to do?')
             print('1. Chop down the tree')
             print('2. Leave')
-            # try:
-            x = input('-> ')
-            if x == '1':
-                self.chop(player)
-                return True
-            else:
-                return False
-            # except:
-            #   print('Invalid input')
-            #   return
+            try:
+                x = input('-> ')
+                if x == '1':
+                    self.chop(player)
+                    return True
+                else:
+                    return False
+            except:
+                print('Invalid input')
+                return
 
     def chop(self, player):
         h = len(self.arr) - 5
@@ -60,10 +60,11 @@ class Tree:
 class Mine:
     def __init__(self):
         self.items = Constants.ORES
-        self.w = 50
+        self.w = 49
         self.h = 35
+        self.generateMine()
 
-    def action(self):
+    def action(self, player, map):
         self.generateMineMap()
 
     def generateMine(self):
@@ -101,6 +102,8 @@ class Mine:
 
                     prev = prob
                 self.map[i][j] = character
+
+        self.map[int((self.h - 1) / 2)][int((self.w + 1)/2)] = Constants.PLAYER
 
     def display(self):
         window = [''.join(l) for l in self.map]
