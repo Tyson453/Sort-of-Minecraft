@@ -1,7 +1,7 @@
-import replit
 from random import randint, choice
 
 from code.structures import Tree, Mine
+from code.util import clearConsole
 
 class Map:
   def __init__(self,mw,mh,dw,dh,items, game, treeProb, mineProb):
@@ -97,7 +97,7 @@ class Map:
     return frame
     
   def displayWindow(self):
-    replit.clear()
+    clearConsole()
     self.generateDisplay()
     window = self.display
     window = [''.join(l) for l in window]
