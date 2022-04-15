@@ -5,9 +5,11 @@ from getkey import getkey, keys
 try:
     from code.constants import Constants
     from code.util import clearConsole
+    from code.items import Pickaxe
 except:
     from constants import Constants
     from util import clearConsole
+    from items import Pickaxe
 
 
 class Tree:
@@ -71,22 +73,55 @@ class Mine:
     def action(self, player, map):
         self.generateMineMap()
         self.player = player
+        self.getMiningPower()
+
+        if self.miningPower == 0:
+            print('You don\'t have a pickaxe so you can\'t enter the mine')
+            print('Press any key to continue playing')
+            while getkey() == '':
+                pass
+
+            return False
+        else:
+            print('What would you like to do?')
+            print('1. Enter the mine')
+            print('2. Leave')
+            try:
+                x = input('-> ')
+                if x == '1':
+                    clearConsole()
+                    self.display()
+                else:
+                    return False
+            except:
+                print('Invalid input')
+                return
 
         key = getkey()
 
         while key != 'q':
             key = getkey()
 
-            x,y = self.pCoords
+            x, y = self.pCoords
             if key == 'w' or key == keys.UP:
-                self.movePlayer(x,y-1)
+                self.movePlayer(x, y-1)
             elif key == 'a' or key == keys.LEFT:
-                self.movePlayer(x-1,y)
+                self.movePlayer(x-1, y)
             elif key == 's' or key == keys.DOWN:
-                self.movePlayer(x,y+1)
+                self.movePlayer(x, y+1)
             elif key == 'd' or key == keys.RIGHT:
-                self.movePlayer(x+1,y)
-    
+                self.movePlayer(x+1, y)
+            elif key == 'l':
+                break
+
+        return True
+
+    def getMiningPower(self):
+        self.miningPower = 0
+        for item in self.player.inventory:
+            if type(item) == Pickaxe:
+                self.miningPower = item.power
+
     def generateMine(self):
         self.arr = []
         self.arr.append([' ╔', '══', '══', '══', '╗ '])
@@ -119,13 +154,13 @@ class Mine:
                         if num < prob * limit:
                             character = choice(chars)
                             break
-    
+
                         prev = prob
                     self.map[i][j] = character
 
         x = int((self.h - 1) / 2)
         y = int((self.w + 1)/2)
-        self.pCoords = (x,y)
+        self.pCoords = (x, y)
         self.map[y][x] = Constants.PLAYER
 
     def display(self):
@@ -145,9 +180,8 @@ class Mine:
 
         return frame
 
-
-    def getOre(self,character):
-        if Constants.RED in character:
+    def getOre(self, character):
+        if Constants.ORANGE in character:
             return Constants.COPPER
         elif Constants.WHITE in character:
             return Constants.SILVER
@@ -157,11 +191,11 @@ class Mine:
             return Constants.AMETHYST
         elif Constants.GREEN in character:
             return Constants.JADE
-        elif Constants.BLUE in character:
+        elif Constants.CYAN in character:
             return Constants.DIAMOND
-    def movePlayer(self,x,y):
-        oldx,oldy = self.pCoords
-                
+
+    def movePlayer(self, x, y):
+        oldx, oldy = self.pCoords
 
         if x > self.w - 2:
             x = self.w - 2
@@ -173,21 +207,21 @@ class Mine:
         elif y < 1:
             y = 1
 
-        self.pCoords = (x,y)
-        
-        
+        self.pCoords = (x, y)
+
         character = self.map[y][x]
 
         if '.' in character or ':' in character:
-            character = self.getOre(character)
-            req = character.req
-            
-            if req not in self.player.inventory:
-                self.pCoords = (oldx,oldy)
-            else:
-                self.player.addItemToInventory(character)
+            ore = self.getOre(character)
+            req = ore.req
 
-        if self.pCoords != (oldx,oldy):
+            if self.miningPower < req:
+                self.pCoords = (oldx, oldy)
+            else:
+                for i in range(self.getOreAmount(character)):
+                    self.player.addItemToInventory(ore)
+
+        if self.pCoords != (oldx, oldy):
             self.map[y][x] = Constants.PLAYER
             self.map[oldy][oldx] = '  '
 
@@ -197,7 +231,11 @@ class Mine:
             clearConsole()
             self.display()
 
-        
+    def getOreAmount(self, character):
+        periodCount = character.count('.')
+        colonCount = character.count(':')
+
+        return colonCount * 2 + periodCount
 
 
 '''

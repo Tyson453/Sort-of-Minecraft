@@ -6,11 +6,10 @@ except:
 
 class Player:
     def __init__(self, game, startCoords):
-        self.inventory = {Constants.STONE_AXE: 1}
+        self.inventory = {Constants.STONE_AXE: 1, Constants.DIAMOND_PICKAXE: 1}
         self.game = game
         x, y = startCoords
         self.coords = startCoords
-        self.setCoords(x, y)
 
     def setCoords(self, x, y):
         self.coords = (x, y)
@@ -58,7 +57,6 @@ class Player:
             self.inventory[item] += 1
         else:
             self.inventory[item] = 1
-        self.game.map.displayWindow()
 
     def printInventory(self):
         for item in self.inventory:

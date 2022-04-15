@@ -110,11 +110,15 @@ class Map:
         window = [''.join(l) for l in window]
         window = '\n'.join(window)
         print(window)
-        print(self.pCoords)
-        try:
-            self.game.player.printInventory()
-        except:
-            pass
+        print()
+        # List of actions:
+        # View inventory, view stats, clear screen, build, interact, craft
+        top = f'1. View Inventory | 2. View Stats | 3. View Coordinates'
+        bottom = f'4. Build | 5. Craft | 6. Clear Screen'
+        tw = (self.dw*2 - len(top))//2
+        bw = (self.dw*2 - len(bottom))//2
+        print(' '*tw, top)
+        print(' '*bw, bottom)
 
     def setPlayerCoords(self, coords):
         oldx, oldy = self.pCoords
@@ -242,6 +246,6 @@ class Map:
 
         for i in range(x1, x2):
             for j in range(y1, y2):
-                self.map[j][i] = '  '
                 if (i, j) in self.occupiedList:
+                    self.map[j][i] = '  '
                     self.occupiedList.pop(self.occupiedList.index((i, j)))

@@ -22,7 +22,8 @@ class Axe(CraftedItem):
 
 
 class Pickaxe(CraftedItem):
-    def __init__(self, name, recipe):
+    def __init__(self, name, recipe, power):
+        self.power = power
         CraftedItem.__init__(self, name, recipe)
 
 
