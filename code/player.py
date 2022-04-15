@@ -6,10 +6,15 @@ except:
 
 class Player:
     def __init__(self, game, startCoords):
-        self.inventory = {Constants.STONE_AXE: 1, Constants.DIAMOND_PICKAXE: 1}
+        self.inventory = {}
         self.game = game
         x, y = startCoords
         self.coords = startCoords
+        self.axe = None
+        self.pickaxe = None
+        self.sword = None
+        self.armor = {'Helmet': None, 'Chestplate': None,
+                      'Leggings': None, 'Boots': None}
 
     def setCoords(self, x, y):
         self.coords = (x, y)
