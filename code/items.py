@@ -16,15 +16,21 @@ class CraftedItem(Item):
         Item.__init__(self, name)
 
 
-class Axe(CraftedItem):
-    def __init__(self, name, recipe):
+class Tool(CraftedItem):
+    def __init__(self, durability, name, recipe):
+        self.durability = durability
         CraftedItem.__init__(self, name, recipe)
 
 
-class Pickaxe(CraftedItem):
-    def __init__(self, name, recipe, power):
+class Axe(Tool):
+    def __init__(self, durability, name, recipe):
+        Tool.__init__(self, durability, name, recipe)
+
+
+class Pickaxe(Tool):
+    def __init__(self, durability, name, recipe, power):
         self.power = power
-        CraftedItem.__init__(self, name, recipe)
+        Tool.__init__(self, durability, name, recipe)
 
 
 class Ore:

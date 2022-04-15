@@ -22,38 +22,6 @@ class Constants:
     # </Characters>
 
     # <Items>
-    # <Crafted>
-    # <Tools>
-    # <Stone>
-    STONE_AXE = Axe('Stone axe', None)
-    STONE_PICKAXE = Pickaxe('Stone pickaxe', None, 1)
-    # </Stone>
-    # <Copper>
-    COPPER_AXE = Axe('Copper axe', None)
-    COPPER_PICKAXE = Pickaxe('Copper pickaxe', None, 2)
-    # </Copper>
-    # <Silver>
-    SILVER_AXE = Axe('Silver axe', None)
-    SILVER_PICKAXE = Pickaxe('Silver pickaxe', None, 3)
-    # </Silver>
-    # <Gold>
-    GOLD_AXE = Axe('Gold axe', None)
-    GOLD_PICKAXE = Pickaxe('Gold pickaxe', None, 4)
-    # </Gold>
-
-    # <Jade>
-    JADE_AXE = Axe('Jade axe', None)
-    JADE_PICKAXE = Pickaxe('Jade pickaxe', None, 5)
-    # </Jade>
-    # <Diamond>
-    DIAMOND_AXE = Axe('Diamond axe', None)
-    DIAMOND_PICKAXE = Pickaxe('Diamond pickaxe', None, 6)
-
-    # </Diamond>
-
-    # </Tools>
-    # </Crafted>
-
     # <Floor>
     STICK = FloorItem('Stick', ['══'], .002)
     ROCK = FloorItem('Rock', ['o ', ' o'], .001)
@@ -69,7 +37,6 @@ class Constants:
     DIAMOND = Ore('Diamond', .0001, 5, CYAN)
 
     ORES = [COPPER, SILVER, GOLD, AMETHYST, JADE, DIAMOND]
-
     # </Ore>
     # </Floor>
 
@@ -77,4 +44,38 @@ class Constants:
     LOG = Item('Log')
     ACORN = Item('Acorn')
     # </Obtained>
+
+    # <Crafted>
+    # <Tools>
+    # <Stone>
+    STONE_AXE = Axe(100, 'Stone axe', {STICK: 2, ROCK: 3, VINE: 1})
+    STONE_PICKAXE = Pickaxe(100, 'Stone pickaxe', {
+                            STICK: 2, ROCK: 3, VINE: 2}, 1)
+    # </Stone>
+    # <Copper>
+    COPPER_AXE = Axe(250, 'Copper axe', None)
+    COPPER_PICKAXE = Pickaxe(250, 'Copper pickaxe', None, 2)
+    # </Copper>
+    # <Silver>
+    SILVER_AXE = Axe(400, 'Silver axe', None)
+    SILVER_PICKAXE = Pickaxe(400, 'Silver pickaxe', None, 3)
+    # </Silver>
+    # <Gold>
+    GOLD_AXE = Axe(400, 'Gold axe', None)
+    GOLD_PICKAXE = Pickaxe(400, 'Gold pickaxe', None, 4)
+    # </Gold>
+
+    # <Jade>
+    JADE_AXE = Axe(650, 'Jade axe', None)
+    JADE_PICKAXE = Pickaxe(650, 'Jade pickaxe', None, 5)
+    # </Jade>
+    # <Diamond>
+    DIAMOND_AXE = Axe(1000, 'Diamond axe', None)
+    DIAMOND_PICKAXE = Pickaxe(1000, 'Diamond pickaxe', None, 6)
+
+    # </Diamond>
+
+    # </Tools>
+    # </Crafted>
+
     # </Items>
