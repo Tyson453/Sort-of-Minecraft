@@ -18,12 +18,8 @@ except:
     pass
 
 
-# mine = Mine()
 
-# mine.action()
-
-# mine.display()
-
+mine = Mine()
 
 items = [Constants.STICK, Constants.ROCK,
          Constants.LEAF, Constants.VINE]
@@ -31,3 +27,5 @@ items = [Constants.STICK, Constants.ROCK,
 game = Game(32, 32, 31, 19, items, .001, .001)
 
 game.play()
+
+# mine.action(game.player,game.map)

@@ -3,9 +3,11 @@ from random import randint, choice
 try:
     from code.structures import Tree, Mine
     from code.util import clearConsole
+    from code.constants import Constants
 except:
     from structures import Tree, Mine
     from util import clearConsole
+    from constants import Constants
 
 
 class Map:
@@ -134,12 +136,13 @@ class Map:
             character = self.map[y][x]
             if character != '  ':
                 self.game.player.addItemToInventory(self.getItem(character))
-            self.map[y][x] = '[]'
+            self.map[y][x] = Constants.PLAYER
             if self.pCoords != (oldx, oldy):
                 self.displayWindow()
         else:
             self.game.player.coords = (oldx, oldy)
             self.pCoords = (oldx, oldy)
+            self.map[oldy][oldx] = Constants.PLAYER
             object = self.findObject(x, y)
             if object.action(self.game.player, self):
                 self.deleteStructure(object)

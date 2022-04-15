@@ -1,9 +1,13 @@
 from random import randint, choice
+from getkey import getkey, keys
+
 
 try:
     from code.constants import Constants
+    from code.util import clearConsole
 except:
     from constants import Constants
+    from util import clearConsole
 
 
 class Tree:
@@ -60,13 +64,29 @@ class Tree:
 class Mine:
     def __init__(self):
         self.items = Constants.ORES
-        self.w = 49
-        self.h = 35
+        self.w = 35
+        self.h = 27
         self.generateMine()
 
     def action(self, player, map):
         self.generateMineMap()
+        self.player = player
 
+        key = getkey()
+
+        while key != 'q':
+            key = getkey()
+
+            x,y = self.pCoords
+            if key == 'w' or key == keys.UP:
+                self.movePlayer(x,y-1)
+            elif key == 'a' or key == keys.LEFT:
+                self.movePlayer(x-1,y)
+            elif key == 's' or key == keys.DOWN:
+                self.movePlayer(x,y+1)
+            elif key == 'd' or key == keys.RIGHT:
+                self.movePlayer(x+1,y)
+    
     def generateMine(self):
         self.arr = []
         self.arr.append([' ╔', '══', '══', '══', '╗ '])
@@ -86,29 +106,33 @@ class Mine:
 
         default = '  '
         limit = 1000000000
-        for i in range(1, h-1):
-            l = []
-            for j in range(1, w-1):
-                num = randint(1, limit)
-                prev = 0
-                character = default
-                for item in self.items:
-                    chars = item.characters
-                    prob = item.prob
-                    prob += prev
-                    if num < prob * limit:
-                        character = choice(chars)
-                        break
+        for i in range(h-1):
+            for j in range(w-1):
+                if i != 0 and i != h - 1 and j != 0 and j != w - 1:
+                    num = randint(1, limit)
+                    prev = 0
+                    character = default
+                    for item in self.items:
+                        chars = item.characters
+                        prob = item.prob
+                        prob += prev
+                        if num < prob * limit:
+                            character = choice(chars)
+                            break
+    
+                        prev = prob
+                    self.map[i][j] = character
 
-                    prev = prob
-                self.map[i][j] = character
-
-        self.map[int((self.h - 1) / 2)][int((self.w + 1)/2)] = Constants.PLAYER
+        x = int((self.h - 1) / 2)
+        y = int((self.w + 1)/2)
+        self.pCoords = (x,y)
+        self.map[y][x] = Constants.PLAYER
 
     def display(self):
         window = [''.join(l) for l in self.map]
         window = '\n'.join(window)
         print(window)
+        print(self.pCoords)
 
     def createFrame(self, w, h):
         frame = []
@@ -120,6 +144,60 @@ class Mine:
                        for j in range(h-2)] + bottom
 
         return frame
+
+
+    def getOre(self,character):
+        if Constants.RED in character:
+            return Constants.COPPER
+        elif Constants.WHITE in character:
+            return Constants.SILVER
+        elif Constants.YELLOW in character:
+            return Constants.GOLD
+        elif Constants.MAGENTA in character:
+            return Constants.AMETHYST
+        elif Constants.GREEN in character:
+            return Constants.JADE
+        elif Constants.BLUE in character:
+            return Constants.DIAMOND
+    def movePlayer(self,x,y):
+        oldx,oldy = self.pCoords
+                
+
+        if x > self.w - 2:
+            x = self.w - 2
+        elif x < 1:
+            x = 1
+
+        if y > self.h - 2:
+            y = self.h - 2
+        elif y < 1:
+            y = 1
+
+        self.pCoords = (x,y)
+        
+        
+        character = self.map[y][x]
+
+        if '.' in character or ':' in character:
+            character = self.getOre(character)
+            req = character.req
+            
+            if req not in self.player.inventory:
+                self.pCoords = (oldx,oldy)
+            else:
+                self.player.addItemToInventory(character)
+
+        if self.pCoords != (oldx,oldy):
+            self.map[y][x] = Constants.PLAYER
+            self.map[oldy][oldx] = '  '
+
+            clearConsole()
+            self.display()
+        else:
+            clearConsole()
+            self.display()
+
+        
 
 
 '''
