@@ -1,19 +1,16 @@
-try:
-    from code.items import Item, FloorItem, CraftedItem, Axe, Pickaxe, Ore
-except:
-    from items import Item, FloorItem, CraftedItem, Axe, Pickaxe, Ore
+from code.items import Item, FloorItem, CraftedItem, Sword, Axe, Pickaxe, Ore
 
 
 class Constants:
     # <Colors>
-    BLACK = '\u001b[30m'  # Coal
-    RED = '\u001b[31m'  # Copper
+    BLACK = '\u001b[30m'
+    RED = '\u001b[31m'  # Ruby
     GREEN = '\u001b[32m'  # Jade
     YELLOW = '\u001b[33m'  # Gold
-    ORANGE = '\u001b[34m'  # Diamond
+    ORANGE = '\u001b[34m'  # Copper
     MAGENTA = '\u001b[35m'  # Amethyst
-    CYAN = '\u001b[36m'
-    WHITE = '\u001b[37m'  # Titanium
+    CYAN = '\u001b[36m'  # Diamond
+    WHITE = '\u001b[37m'  # Silver
     RESET = '\u001b[0m'
     # </Colors>
 
@@ -31,12 +28,13 @@ class Constants:
     # <Ore>
     COPPER = Ore('Copper ore', .0025, 1, ORANGE)
     SILVER = Ore('Silver ore', .001, 2, WHITE)
-    GOLD = Ore('Gold ore', .00075, 3, YELLOW)
+    GOLD = Ore('Gold ore', .00075, 2, YELLOW)
     AMETHYST = Ore('Amethyst', .0004, 3, MAGENTA)
-    JADE = Ore('Jade', .0002, 4, GREEN)
+    JADE = Ore('Jade', .0002, 3, GREEN)
+    RUBY = Ore('Ruby', .00015, 4, RED)
     DIAMOND = Ore('Diamond', .0001, 5, CYAN)
 
-    ORES = [COPPER, SILVER, GOLD, AMETHYST, JADE, DIAMOND]
+    ORES = [COPPER, SILVER, GOLD, AMETHYST, JADE, RUBY, DIAMOND]
     # </Ore>
     # </Floor>
 
@@ -48,34 +46,41 @@ class Constants:
     # <Crafted>
     # <Tools>
     # <Stone>
-    STONE_AXE = Axe(100, 'Stone axe', {STICK: 2, ROCK: 3, VINE: 1})
-    STONE_PICKAXE = Pickaxe(100, 'Stone pickaxe', {
+    STONE_SWORD = Sword(75, 'Stone sword', None, 15)
+    STONE_AXE = Axe(75, 'Stone axe', {STICK: 2, ROCK: 3, VINE: 1})
+    STONE_PICKAXE = Pickaxe(75, 'Stone pickaxe', {
                             STICK: 2, ROCK: 3, VINE: 2}, 1)
     # </Stone>
     # <Copper>
-    COPPER_AXE = Axe(250, 'Copper axe', None)
-    COPPER_PICKAXE = Pickaxe(250, 'Copper pickaxe', None, 2)
+    COPPER_SWORD = Sword(150, 'Copper sword', None, 25)
+    COPPER_AXE = Axe(150, 'Copper axe', None)
+    COPPER_PICKAXE = Pickaxe(150, 'Copper pickaxe', None, 2)
     # </Copper>
     # <Silver>
-    SILVER_AXE = Axe(400, 'Silver axe', None)
-    SILVER_PICKAXE = Pickaxe(400, 'Silver pickaxe', None, 3)
+    SILVER_SWORD = Sword(250, 'Silver sword', None, 35)
+    SILVER_AXE = Axe(250, 'Silver axe', None)
+    SILVER_PICKAXE = Pickaxe(250, 'Silver pickaxe', None, 3)
     # </Silver>
-    # <Gold>
-    GOLD_AXE = Axe(400, 'Gold axe', None)
-    GOLD_PICKAXE = Pickaxe(400, 'Gold pickaxe', None, 4)
-    # </Gold>
-
     # <Jade>
-    JADE_AXE = Axe(650, 'Jade axe', None)
-    JADE_PICKAXE = Pickaxe(650, 'Jade pickaxe', None, 5)
+    JADE_SWORD = Sword(400, 'Jade sword', None, 45)
+    JADE_AXE = Axe(400, 'Jade axe', None)
+    JADE_PICKAXE = Pickaxe(400, 'Jade pickaxe', None, 4)
     # </Jade>
+    # <Ruby>
+    RUBY_SWORD = Sword(550, 'Ruby sword', None, 45)
+    RUBY_AXE = Axe(550, 'Ruby axe', None)
+    RUBY_PICKAXE = Pickaxe(550, 'Ruby pickaxe', None, 5)
+    # </Ruby>
     # <Diamond>
-    DIAMOND_AXE = Axe(1000, 'Diamond axe', None)
-    DIAMOND_PICKAXE = Pickaxe(1000, 'Diamond pickaxe', None, 6)
-
+    DIAMOND_SWORD = Sword(750, 'Diamond sword', None, 55)
+    DIAMOND_AXE = Axe(750, 'Diamond axe', None)
+    DIAMOND_PICKAXE = Pickaxe(750, 'Diamond pickaxe', None, 6)
     # </Diamond>
-
     # </Tools>
+
+    # <Armor>
+
+    # <Armor>
     # </Crafted>
 
     # </Items>

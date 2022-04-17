@@ -1,18 +1,21 @@
 from random import randint
 from getkey import getkey, keys
-from time import sleep
+import sys
 
-try:
-    from code.map import Map
-    from code.player import Player
-    from code.util import clearConsole
-except:
-    from map import Map
-    from player import Player
-    from util import clearConsole
+# try:
+from code.map import Map
+from code.player import Player
+from code.util import clearConsole
+from code.items import Helmet, Chestplate, Leggings, Boots, Axe, Pickaxe
+# except:
+#     from map import Map
+#     from player import Player
+#     from util import clearConsole
+#     from items import Helmet, Chestplate, Leggings, Boots, Axe, Pickaxe
 
 
 class Game:
+
     def __init__(self, mW, mH, dW, dH, items, treeProb, mineProb):
         self.maxWidth = mW
         self.maxHeight = mH
@@ -50,8 +53,14 @@ class Game:
                 self.craft()
                 self.map.displayWindow()
             elif key == '6':
+                self.equip()
+                self.map.displayWindow()
+            elif key == '7':
                 self.clearScreen()
                 self.map.displayWindow()
+
+            elif key == 'q':
+                sys.exit()
 
     def getStartCoords(self):
         x = randint(0, self.maxWidth)
@@ -88,6 +97,28 @@ class Game:
         clearConsole()
         print('Crafting has not been added yet')
         self.waitForKeypress()
+
+    def equip(self):
+        clearConsole()
+        equippableClasses = [Helmet, Chestplate, Leggings, Boots, Axe, Pickaxe]
+        equippables = [item for item in self.player.inventory if type(
+            item) in equippableClasses]
+        if len(equippables) == 0:
+            print('You don\'t have any items to equip')
+        else:
+            for i, item in enumerate(equippables):
+                print(f'{i+1}. {item.name} ({self.player.inventory[item]})')
+
+        print()
+        try:
+            print('What item would you like to equip?')
+            x = input('-> ')
+
+            item = equippables[int(x)-1]
+            self.player.equipItem(item)
+        except:
+            print('Invalid input')
+            self.waitForKeypress()
 
     def waitForKeypress(self):
         print('\nPress enter to continue')

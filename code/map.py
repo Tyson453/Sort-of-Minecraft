@@ -60,15 +60,13 @@ class Map:
                 l.append(character)
 
             self.map.append(l)
-        
+
+        print('Adding trees...')
         for i in range(self.numTrees):
-            if i % self.numTrees//10 == 0:
-                print(i, 'th tree')
             self.addTree()
 
+        print('Adding mines...')
         for i in range(self.numMines):
-            if i % self.numMines//10 == 0:
-                print(i, 'th mine')
             self.addMine()
 
     def generateDisplay(self):
@@ -119,7 +117,7 @@ class Map:
         # List of actions:
         # View inventory, view stats, clear screen, build, interact, craft
         top = f'1. View Inventory | 2. View Stats | 3. View Coordinates'
-        bottom = f'4. Build | 5. Craft | 6. Clear Screen'
+        bottom = f'4. Build | 5. Craft | 6. Equip | 7. Clear Screen'
         tw = (self.dw*2 - len(top))//2
         bw = (self.dw*2 - len(bottom))//2
         print(' '*tw, top)

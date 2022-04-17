@@ -29,8 +29,8 @@ class Tree:
 
     def action(self, player, map):
         print()
-        if Constants.STONE_AXE not in player.inventory:
-            print('You don\'t have an axe so you can\'t chop down the tree')
+        if player.axe is None:
+            print('You don\'t have an axe equipped so you can\'t chop down the tree')
         else:
             print('What would you like to do?')
             print('1. Chop down the tree')
@@ -75,6 +75,7 @@ class Mine:
         self.player = player
         self.getMiningPower()
 
+        print()
         if self.miningPower == 0:
             print('You don\'t have a pickaxe so you can\'t enter the mine')
             return False
@@ -113,10 +114,10 @@ class Mine:
         return True
 
     def getMiningPower(self):
-        self.miningPower = 0
-        for item in self.player.inventory:
-            if type(item) == Pickaxe:
-                self.miningPower = item.power
+        if self.player.pickaxe == None:
+            self.miningPower = 0
+        else:
+            self.miningPower = self.player.pickaxe.power
 
     def generateMine(self):
         self.arr = []
