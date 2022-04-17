@@ -1,17 +1,17 @@
-try:
-    from code.constants import Constants
-    from code.items import Helmet, Chestplate, Leggings, Boots, Axe, Pickaxe
-except:
-    from constants import Constants
-    from items import Helmet, Chestplate, Leggings, Boots, Axe, Pickaxe
+from code.constants import Constants
+from code.items import Helmet, Chestplate, Leggings, Boots, Axe, Pickaxe
 
 
 class Player:
     def __init__(self, game, startCoords):
         self.inventory = {Constants.DIAMOND_AXE: 1,
                           Constants.DIAMOND_PICKAXE: 2,
-                          Constants.STONE_PICKAXE: 1
-                          }
+                          Constants.STONE_PICKAXE: 1}
+        self.health = 20
+        self.hunger = 20
+        self.defense = 0
+        self.steps = 0
+
         self.game = game
         x, y = startCoords
         self.coords = startCoords
@@ -24,6 +24,7 @@ class Player:
     def setCoords(self, x, y):
         self.coords = (x, y)
         self.game.map.setPlayerCoords(self.coords)
+        self.steps += 1
 
     def moveLeft(self):
         x, y = self.coords

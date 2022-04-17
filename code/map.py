@@ -1,19 +1,15 @@
 from random import randint, choice
 
-try:
-    from code.structures import Tree, Mine
-    from code.util import clearConsole
-    from code.constants import Constants
-except:
-    from structures import Tree, Mine
-    from util import clearConsole
-    from constants import Constants
+from code.structures import Tree, Mine
+from code.util import clearConsole
+from code.constants import Constants
 
 
 class Map:
     def __init__(self, mw, mh, dw, dh, items, game, treeProb, mineProb):
         self.occupiedAreas = []
         self.occupiedList = []
+        self.player = None
 
         self.mw = mw
         self.mh = mh
@@ -25,6 +21,7 @@ class Map:
         self.numMines = int(self.pixels * mineProb)
 
         self.items = items
+        self.mobs = Constants.MOBS
         self.game = game
         self.pCoords = self.generateCoordinates(1, 1)
 
@@ -113,7 +110,7 @@ class Map:
         window = [''.join(l) for l in window]
         window = '\n'.join(window)
         print(window)
-        print()
+
         # List of actions:
         # View inventory, view stats, clear screen, build, interact, craft
         top = f'1. View Inventory | 2. View Stats | 3. View Coordinates'
@@ -122,6 +119,10 @@ class Map:
         bw = (self.dw*2 - len(bottom))//2
         print(' '*tw, top)
         print(' '*bw, bottom)
+        if self.player is None:
+            pass
+        else:
+            print(self.player.steps)
 
     def setPlayerCoords(self, coords):
         oldx, oldy = self.pCoords
@@ -252,3 +253,13 @@ class Map:
                 if (i, j) in self.occupiedList:
                     self.map[j][i] = '  '
                     self.occupiedList.pop(self.occupiedList.index((i, j)))
+
+    def spawnMonsters(self):
+        numMonsters = randint(self.pixels//2500, self.pixels//1000)
+
+        for i in range(numMonsters):
+            y = randint(0, self.mh)
+            x = randint(0, self.mw)
+
+            if (x, y) not in self.occupiedList:
+                self.map[y][x] = choice(self.mobs).character

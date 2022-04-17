@@ -7,6 +7,8 @@ from code.map import Map
 from code.player import Player
 from code.util import clearConsole
 from code.items import Helmet, Chestplate, Leggings, Boots, Axe, Pickaxe
+
+import time
 # except:
 #     from map import Map
 #     from player import Player
@@ -17,15 +19,30 @@ from code.items import Helmet, Chestplate, Leggings, Boots, Axe, Pickaxe
 class Game:
 
     def __init__(self, mW, mH, dW, dH, items, treeProb, mineProb):
+        self.startTime = time.time()
+        self.seconds = 0
+        self.daytime = True
+
         self.maxWidth = mW
         self.maxHeight = mH
         self.map = Map(mW, mH, dW, dH, items, self, treeProb, mineProb)
+
         startCoords = self.map.pCoords
         self.player = Player(self, startCoords)
+        self.map.player = self.player
         self.player.setCoords(startCoords[0], startCoords[1])
 
     def play(self):
         while True:
+            t = time.time()
+            self.seconds += t//1000
+
+            if self.seconds >= 720:
+                self.daytime = not self.daytime
+                self.seconds -= 720
+                if not self.daytime:
+                    self.nightTime()
+
             key = getkey()
 
             if key == 'w' or key == keys.UP:
@@ -119,6 +136,9 @@ class Game:
         except:
             print('Invalid input')
             self.waitForKeypress()
+
+    def nightTime(self):
+        self.map.spawnMonsters()
 
     def waitForKeypress(self):
         print('\nPress enter to continue')

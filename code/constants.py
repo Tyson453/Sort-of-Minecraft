@@ -1,4 +1,5 @@
 from code.items import Item, FloorItem, CraftedItem, Sword, Axe, Pickaxe, Ore
+from code.mobs import Mob
 
 
 class Constants:
@@ -11,6 +12,16 @@ class Constants:
     MAGENTA = '\u001b[35m'  # Amethyst
     CYAN = '\u001b[36m'  # Diamond
     WHITE = '\u001b[37m'  # Silver
+
+    BG_BLACK = '\u001b[40m'
+    BG_RED = '\u001b[41m'
+    BG_GREEN = '\u001b[42m'
+    BG_YELLOW = '\u001b[43m'
+    BG_ORANGE = '\u001b[44m'
+    BG_MAGENTA = '\u001b[45m'
+    BG_CYAN = '\u001b[46m'
+    BG_WHITE = '\u001b[47m'
+
     RESET = '\u001b[0m'
     # </Colors>
 
@@ -84,3 +95,12 @@ class Constants:
     # </Crafted>
 
     # </Items>
+
+    # <Mobs>
+
+    ZOMBIE = Mob('Zombie', 100, (12, 18), None, GREEN)
+    SKELETON = Mob('Skeleton', 100, (15, 20), None, WHITE)
+    SPIDER = Mob('Spider', 80, (14, 20), None, RED)
+
+    MOBS = []
+    # </Mobs>

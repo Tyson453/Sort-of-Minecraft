@@ -2,14 +2,9 @@ from random import randint, choice
 from getkey import getkey, keys
 
 
-try:
-    from code.constants import Constants
-    from code.util import clearConsole
-    from code.items import Pickaxe
-except:
-    from constants import Constants
-    from util import clearConsole
-    from items import Pickaxe
+from code.constants import Constants
+from code.util import clearConsole
+from code.items import Pickaxe
 
 
 class Tree:
