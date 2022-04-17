@@ -63,6 +63,28 @@ class Player:
         else:
             self.inventory[item] = 1
 
+    def equipAxe(self,axe):
+        self.axe = axe
+
+    def equipPickaxe(self,pickaxe):
+        self.pickaxe = pickaxe
+
+    def equipSword(self,sword):
+        self.sword = sword
+
+    def equipArmor(self,armor):
+        t = type(armor)
+
+        if t == Helmet:
+            self.armor['Helmet'] = armor
+        elif t == Chestplate:
+            self.armo['Chestplate'] = armor
+        elif t == Leggings:
+            self.armo['Leggings'] = armor
+        elif t == Boots:
+            self.armo['Boots'] = armor
+        
+    
     def printInventory(self):
         for item in self.inventory:
             print(f'{item.name}: {self.inventory[item]}')

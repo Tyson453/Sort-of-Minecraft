@@ -77,10 +77,6 @@ class Mine:
 
         if self.miningPower == 0:
             print('You don\'t have a pickaxe so you can\'t enter the mine')
-            print('Press any key to continue playing')
-            while getkey() == '':
-                pass
-
             return False
         else:
             print('What would you like to do?')
@@ -125,8 +121,8 @@ class Mine:
     def generateMine(self):
         self.arr = []
         self.arr.append([' ╔', '══', '══', '══', '╗ '])
+        self.arr.append([' ║', ' M', 'IN', 'E ', '║ '])
         self.arr.append([' ║', ' ╔', '══', '╗ ', '║ '])
-        self.arr.append([' ║', ' ║', '  ', '║ ', '║ '])
         self.arr.append([' ║', ' ║', '  ', '║ ', '║ '])
         self.arr.append([' ║', ' ║', '  ', '║ ', '║ '])
         self.arr.append(['═╩', '═╩', '══', '╩═', '╩═'])

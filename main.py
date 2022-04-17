@@ -20,8 +20,7 @@ mine = Mine()
 items = [Constants.STICK, Constants.ROCK,
          Constants.LEAF, Constants.VINE]
 
-game = Game(32, 32, 31, 19, items, .002, .002)
+game = Game(1334, 750, 31, 19, items, .001, .0001)
 
 game.play()
 
-# mine.action(game.player,game.map)

@@ -32,6 +32,26 @@ class Pickaxe(Tool):
         self.power = power
         Tool.__init__(self, durability, name, recipe)
 
+class Armor(CraftedItem):
+    def __init__(self,name,recipe,durability):
+        CraftedItem.__init__(self,name,recipe)
+        self.durability = durability
+
+class Helmet(Armor):
+    def __init__(self,name,recipe,durability):
+        Armor.__init__(self,name,recipe,durability)
+
+class Chestplate(Armor):
+    def __init__(self,name,recipe,durability):
+        Armor.__init__(self,name,recipe,durability)
+
+class Leggings(Armor):
+    def __init__(self,name,recipe,durability):
+        Armor.__init__(self,name,recipe,durability)
+
+class Boots(Armor):
+    def __init__(self,name,recipe,durability):
+        Armor.__init__(self,name,recipe,durability)
 
 class Ore:
     def __init__(self, name, prob, req, color):

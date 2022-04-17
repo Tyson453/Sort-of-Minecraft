@@ -40,7 +40,8 @@ class Map:
         self.map = []
 
         default = '  '
-        limit = 1000000000
+        limit = 1000000
+        print('creating map...')
         for i in range(h):
             l = []
             for j in range(w):
@@ -59,11 +60,15 @@ class Map:
                 l.append(character)
 
             self.map.append(l)
-
+        
         for i in range(self.numTrees):
+            if i % self.numTrees//10 == 0:
+                print(i, 'th tree')
             self.addTree()
 
         for i in range(self.numMines):
+            if i % self.numMines//10 == 0:
+                print(i, 'th mine')
             self.addMine()
 
     def generateDisplay(self):
